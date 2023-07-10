@@ -3,12 +3,11 @@ name: Deploy Next.js to Cloud Run
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   GCP_PROJECT_ID: ${{ secrets.GCR_PROJECT }}
-  RUN_REGION: "us-central1"
-  SA_KEY_JSON: ${{ secrets.GCR_SA_KEY }}
+  CLOUD_RUN_SA: cloud-run@test-generator-2.iam.gserviceaccount.com
 
 jobs:
   deploy:
@@ -33,26 +32,22 @@ jobs:
           touch .env
           echo 'MONGODB_URI="${{ secrets.MONGODB_URI }}"' >> .env
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build docker image
+        run: docker build ./.docker -t us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/homepage-for-my-dog:${{ github.sha }}
 
-      - name: Build next image
-        run: npm run build
+      - name: Push to Google Container Registry
+        run: docker push us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/homepage-for-my-dog:${{ github.sha }}
 
-      # Build and push image to Google Container Registry
-      - name: Build & Push
-        run: |-
-          gcloud builds submit \
-            --quiet \
-            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
-        working-directory: .docker
-
-      # Deploy image to Cloud Run
-      - name: Deploy GCR
-        run: |-
-          gcloud run deploy "$SERVICE_NAME" \
-            --quiet \
-            --region "$RUN_REGION" \
-            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
-            --platform "managed" \
-            --allow-unauthenticated
+        # https://cloud.google.com/sdk/gcloud/reference/run/deploy
+      - name: Deploy
+        run: >
+          gcloud run deploy testgenapp-dev
+          --image us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/homepage-for-my-dog:${{ github.sha }}
+          --platform managed
+          --region $RUN_REGION
+          --set-env-vars=SPRING_PROFILES_ACTIVE=dev
+          --allow-unauthenticated
+          --service-account $CLOUD_RUN_SA
+          --vpc-connector "cr-conn"
+          --vpc-egress "all-traffic"
+          --ingress=internal-and-cloud-load-balancing
