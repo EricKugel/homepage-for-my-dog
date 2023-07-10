@@ -33,6 +33,9 @@ jobs:
           touch .env
           echo 'MONGODB_URI="${{ secrets.MONGODB_URI }}"' >> .env
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build next image
         run: npm run build
 
