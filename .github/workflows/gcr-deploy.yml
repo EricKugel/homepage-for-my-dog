@@ -32,9 +32,7 @@ jobs:
           restore-keys: |
             nodeModules-
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines
-        env:
-          CI: true
+        run: npm install
 
       - name: Build Development
         run: npm run build
