@@ -33,7 +33,7 @@ jobs:
           echo 'MONGODB_URI="${{ secrets.MONGODB_URI }}"' >> .env
 
       - name: Build docker image
-        run: docker build ./.docker -t us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/homepage-for-my-dog:${{ github.sha }}
+        run: docker build ./ -t us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/homepage-for-my-dog:${{ github.sha }}
 
       - name: Push to Google Container Registry
         run: docker push us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/homepage-for-my-dog:${{ github.sha }}
