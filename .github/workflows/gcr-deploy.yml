@@ -3,7 +3,7 @@ name: Deploy Next.js to Cloud Run
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   GCP_PROJECT_ID: ${{ secrets.GCR_PROJECT }}
