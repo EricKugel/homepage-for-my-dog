@@ -39,9 +39,6 @@ jobs:
       - name: Build next image
         run: npm run build
 
-      - name: Push to Google Container Registry
-        run: docker push us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
-
       # Build and push image to Google Container Registry
       - name: Build & Push
         run: |-
