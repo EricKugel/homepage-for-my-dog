@@ -33,36 +33,26 @@ jobs:
           touch .env
           echo 'MONGODB_URI="${{ secrets.MONGODB_URI }}"' >> .env
 
-      - name: Build docker image
-        run: docker build . -t us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
+      - name: Build next image
+        run: npm run build
 
       - name: Push to Google Container Registry
         run: docker push us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
 
-        # https://cloud.google.com/sdk/gcloud/reference/run/deploy
-      - name: Deploy
-        run: >
-          gcloud run deploy testgenapp-dev
-          --image us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
-          --platform managed
-          --region $RUN_REGION
-          --set-env-vars=SPRING_PROFILES_ACTIVE=dev
-          --allow-unauthenticated
-          --service-account $CLOUD_RUN_SA
-          --vpc-connector "cr-conn"
-          --vpc-egress "all-traffic"
-          --ingress=internal-and-cloud-load-balancing
+      # Build and push image to Google Container Registry
+      - name: Build & Push
+        run: |-
+          gcloud builds submit \
+            --quiet \
+            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
+        working-directory: .docker
 
-        # https://cloud.google.com/sdk/gcloud/reference/run/deploy
-      - name: Deploy
-        run: >
-          gcloud run deploy testgenapp-test
-          --image us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
-          --platform managed
-          --region $RUN_REGION
-          --set-env-vars=SPRING_PROFILES_ACTIVE=test
-          --allow-unauthenticated
-          --service-account $CLOUD_RUN_SA
-          --vpc-connector "cr-conn"
-          --vpc-egress "all-traffic"
-          --ingress=internal-and-cloud-load-balancing
+      # Deploy image to Cloud Run
+      - name: Deploy GCR
+        run: |-
+          gcloud run deploy "$SERVICE_NAME" \
+            --quiet \
+            --region "$RUN_REGION" \
+            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
+            --platform "managed" \
+            --allow-unauthenticated
