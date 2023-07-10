@@ -1,65 +1,68 @@
-name: Google Cloud Run Deploy
-# https://github.com/google-github-actions/setup-gcloud
+# .github/workflows/deploy.yml
+name: Deploy Next.js to Cloud Run
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
-  PROJECT_ID: ${{ secrets.GCR_PROJECT }}
-  RUN_REGION: us-central1
-  SERVICE_NAME: homepage-for-my-dog
+  GCP_PROJECT_ID: ${{ secrets.GCR_PROJECT }}
+  RUN_REGION: "us-central1"
+  SA_KEY_JSON: ${{ secrets.GCR_SA_KEY }}
 
 jobs:
-  build:
-    name: Build Next App
+  deploy:
+    name: Deploy to Cloud Run
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
-      - name: Setup Node.js (NPM)
-        uses: actions/setup-node@master
-        with:
-          node-version: "18.x"
-
-      - name: Use cached node_modules
-        uses: actions/cache@master
-        with:
-          path: node_modules
-          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            nodeModules-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Development
-        run: npm run build
-
-      - name: Setup GCloud Auth
-        id: auth
-        uses: google-github-actions/auth@v0.4.0
+      - name: Authenticate GCP
+        uses: "google-github-actions/auth@v1"
         with:
           credentials_json: ${{ secrets.GCR_SA_KEY }}
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.2.1
+      - name: Set up gcloud SDK
+        uses: "google-github-actions/setup-gcloud@v1"
 
-      # Build and push image to Google Container Registry
-      - name: Build & Push
-        run: |-
-          gcloud builds submit \
-            --quiet \
-            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
-        working-directory: .docker
+      - name: Configure docker for GCP
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      # Deploy image to Cloud Run
-      - name: Deploy GCR
-        run: |-
-          gcloud run deploy "$SERVICE_NAME" \
-            --quiet \
-            --region "$RUN_REGION" \
-            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
-            --platform "managed" \
-            --allow-unauthenticated
+      - name: Create env file
+        run: |
+          touch .env
+          echo 'MONGODB_URI="${{ secrets.MONGODB_URI }}"' >> .env
+
+      - name: Build docker image
+        run: docker build . -t us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
+
+      - name: Push to Google Container Registry
+        run: docker push us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
+
+        # https://cloud.google.com/sdk/gcloud/reference/run/deploy
+      - name: Deploy
+        run: >
+          gcloud run deploy testgenapp-dev
+          --image us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
+          --platform managed
+          --region $RUN_REGION
+          --set-env-vars=SPRING_PROFILES_ACTIVE=dev
+          --allow-unauthenticated
+          --service-account $CLOUD_RUN_SA
+          --vpc-connector "cr-conn"
+          --vpc-egress "all-traffic"
+          --ingress=internal-and-cloud-load-balancing
+
+        # https://cloud.google.com/sdk/gcloud/reference/run/deploy
+      - name: Deploy
+        run: >
+          gcloud run deploy testgenapp-test
+          --image us-central1-docker.pkg.dev/$GCP_PROJECT_ID/docker-repository/test-generator-app:${{ github.sha }}
+          --platform managed
+          --region $RUN_REGION
+          --set-env-vars=SPRING_PROFILES_ACTIVE=test
+          --allow-unauthenticated
+          --service-account $CLOUD_RUN_SA
+          --vpc-connector "cr-conn"
+          --vpc-egress "all-traffic"
+          --ingress=internal-and-cloud-load-balancing
