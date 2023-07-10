@@ -37,7 +37,7 @@ jobs:
           CI: true
 
       - name: Build Development
-        run: yarn build --ignore-engines
+        run: npm run build
 
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
