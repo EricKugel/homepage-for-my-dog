@@ -30,7 +30,7 @@ export const getServerSideProps = async (context) => {
   const session = await getSession(context);
   if (session) {
     await connectDB();
-    const journals = JSON.parse(JSON.stringify(await Journal.find().lean()));
+    const journals = JSON.parse(JSON.stringify(await Journal.find().sort("-date").lean()));
     return {
       props: { journals },
     };
