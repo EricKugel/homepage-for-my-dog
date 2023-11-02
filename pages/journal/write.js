@@ -1,41 +1,19 @@
 import { getSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import { toast } from "react-hot-toast";
 
-import dynamic from "next/dynamic";
+import Editor from "../../components/Editor";
 
-const FroalaEditor = dynamic(
-  async () => {
-    const plugins = [
-      "link",
-      "colors",
-      "entities",
-      "font_size",
-      "lists",
-      "quote",
-    ];
-    const imports = [
-      import("react-froala-wysiwyg"),
-      import("froala-editor/css/froala_style.min.css"),
-      import("froala-editor/css/froala_editor.pkgd.min.css"),
-    ];
-    plugins.map((plugin) => {
-      imports.push(import("froala-editor/js/plugins/" + plugin + ".min.js"));
-    });
-    const values = await Promise.all(imports);
-    return values[0];
-  },
-  {
-    loading: () => <p>Patience, young grasshopper.</p>,
-    ssr: false,
-  }
-);
-
-const Write = (props) => {
+const Write = () => {
   const router = useRouter();
   const [data, setData] = useState("");
+  const [editorLoaded, setEditorLoaded] = useState(false);
+
+  useEffect(() => {
+    setEditorLoaded(true);
+  }, []);
 
   const pushEntry = async (e) => {
     e.preventDefault();
@@ -59,9 +37,9 @@ const Write = (props) => {
 
   return (
     <>
-      <div className="hey">Hey hey, let's write some stuff!</div>
-      <FroalaEditor tag="textarea" model={data} onModelChange={setData} />
+      <Editor name="description" onChange = {(journal_data) => setData(journal_data)} editorLoaded = {editorLoaded}/>
       <button onClick={pushEntry}>Push Entry</button>
+      <div>{data}</div>
     </>
   );
 };

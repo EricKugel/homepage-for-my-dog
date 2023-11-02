@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/journal": "pages/journal.js"
+  "/journal/write": "pages/journal/write.js",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/authorize": "pages/authorize.js"
 }
