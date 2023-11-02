@@ -39,7 +39,6 @@ const Write = () => {
     <>
       <Editor name="description" onChange = {(journal_data) => setData(journal_data)} editorLoaded = {editorLoaded}/>
       <button onClick={pushEntry}>Push Entry</button>
-      <div>{data}</div>
     </>
   );
 };
