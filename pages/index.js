@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import Link from "next/l";
 
 const App = () => {
   const session = useSession();
@@ -6,8 +7,7 @@ const App = () => {
     <>
       <div>Welcome to erickugel.com!</div>
       <br />
-      <div>Current session: </div>
-      <div>{JSON.stringify(session?.data)}</div>
+      <div>Here to play Unicycle Simulator? Go <Link href = "/public/unicycle-simulator-1/Unicycle Simulator 1.html">here!</Link></div>
     </>
   );
 };
