@@ -7,7 +7,7 @@ const App = () => {
     <>
       <div>Welcome to erickugel.com!</div>
       <br />
-      <div>Here to play Unicycle Simulator? Go <Link href = "/public/unicycle-simulator-1/Unicycle Simulator 1.html">here!</Link></div>
+      <div>Here to play Unicycle Simulator? Go <Link href = "/unicycle-simulator-1/Unicycle Simulator 1.html">here!</Link></div>
     </>
   );
 };
