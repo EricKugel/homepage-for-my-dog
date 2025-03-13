@@ -18,6 +18,7 @@ const Layout = ({ children }) => {
       <style jsx global>{`
         body {
           margin: 0;
+          background-color: rgb(177, 196, 200)
         }
       `}</style>
     </div>

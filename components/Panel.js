@@ -1,12 +1,8 @@
-import { useRouter } from "next/router";
-
 import styles from "./Panel.module.css"
 
-const Panel = ({image, avatar, title, subtitle, link}) => {
-    const router = useRouter();
-    
+const Panel = ({image, avatar, title, subtitle, link, topless}) => {
     const clickedMe = () => {
-        router.push(link);
+        window.open(link, "_blank");
     }
 
     return (

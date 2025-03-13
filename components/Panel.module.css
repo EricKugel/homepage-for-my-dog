@@ -1,20 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@400..700&display=swap");
 
 .wrapper {
-    border: 1px solid lightgrey;
+    border: 1px solid darkslategrey;
     border-radius: 10px;
     width: 300px;
 }
 
 .wrapper:hover {
     cursor: pointer;
+    border: 1px solid rgb(159, 159, 159);
 }
 
 .header {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     padding: 10px;
-    background-color: rgb(230, 230, 230);
+    padding-bottom: 5px;
+    background-color: rgb(128, 148, 151);
     font-size: 16px;
 
 }
@@ -24,11 +26,14 @@
 }
 
 .bottom {
-    background-color:rgb(253, 250, 245);
+    background-color:rgb(191, 200, 204);
     padding: 10px;
-    height: 200px;
+    height: 210px;
     display: flex;
     flex-direction: column;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top: 1px dashed rgb(103, 103, 103);
 
     font-family: "Public Sans";
 }

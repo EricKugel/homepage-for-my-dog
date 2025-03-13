@@ -1,14 +1,22 @@
 const Banner = () => {
   return (
     <>
-      <div id="banner">erickugel.com</div>
+      <div id="banner">
+        
+        <img id = "logo" src = "/banner-logo.png"/>
+      </div>
       <style jsx>{`
+        #logo {
+          max-height: 80px;
+        }
         #banner {
-          background-color: gray;
-          padding: 20px;
-          font-size: 20px;
+          background-color: rgb(128, 148, 151);
+          padding: 10px;
+          padding-bottom: 4px;
+          font-size: 33px;
           font-family: monospace;
           font-weight: bold;
+          line-height: 20px;
         }
       `}</style>
     </>
