@@ -27,9 +27,12 @@ const Banner = () => {
           {mobile || <div className = "link" onClick = {() => goTo("/")}>
             Home
           </div>}
-          <div className = "link" onClick = {() => goTo("/about-me")}>
+          {mobile || <div className = "link" onClick = {() => goTo("/about-me")}>
             About Me
-          </div>
+          </div>}
+          {!mobile || <div className = "link" style = {{width: "100px", padding: "0px", }} onClick = {() => goTo("/about-me")}>
+            About Me
+          </div>}
           {mobile || <div className = "link" onClick = {() => goTo("/unicycle-simulator-1/Unicycle%20Simulator%201.html")}>
             Unicycle Simulator
           </div>}
@@ -40,6 +43,7 @@ const Banner = () => {
           max-height: 80px;
           padding: 20px;
           padding-bottom: 0px;
+          padding-right: 0px;
         }
 
         #links {
