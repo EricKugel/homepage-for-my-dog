@@ -1,15 +1,19 @@
 import { useSession } from "next-auth/react";
 
+import { Roboto } from "next/font/google";
+
 import Panel from "../components/Panel";
 import SubtitleLink from "../components/SubtitleLink";
 import styles from "./index.module.css";
+
+const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 
 const App = () => {
   const session = useSession();
 
   return (
     <>
-      <div className = {styles.header}>
+      <div className = {styles.header + " " + roboto.className}>
         My Profiles
       </div>
 
@@ -30,7 +34,7 @@ const App = () => {
         ></Panel>
       </div>
       
-      <div className = {styles.header}>
+      <div className = {styles.header + " " + roboto.className}>
         My Projects
       </div>
 
@@ -65,7 +69,7 @@ const App = () => {
         ></Panel>
       </div>
 
-      <div className = {styles.header}>
+      <div className = {styles.header + " " + roboto.className}>
         My Music
       </div>
 
@@ -86,8 +90,8 @@ const App = () => {
         ></Panel>
       </div>
 
-      <div className = {styles.header}>
-        Unicycle Simulator
+      <div className = {styles.header + " " + roboto.className}>
+        Play Unicycle Simulator
       </div>
 
       <div className = {styles.panelGroup}>
