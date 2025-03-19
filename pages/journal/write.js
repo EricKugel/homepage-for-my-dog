@@ -1,21 +1,19 @@
 import { getSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 import { toast } from "react-hot-toast";
 
-import Editor from "../../components/Editor";
+import styles from "./write.module.css"
 
 const Write = () => {
   const router = useRouter();
-  const [data, setData] = useState("");
-  const [editorLoaded, setEditorLoaded] = useState(false);
-
-  useEffect(() => {
-    setEditorLoaded(true);
-  }, []);
+  const [data, setData] = useState({value: ""});
 
   const pushEntry = async (e) => {
+    var new_data = data.value;
+    new_data = "<p>" + new_data.replaceAll("\n", "<br/>") + "</p>";
+    
     e.preventDefault();
     const response = await fetch("/api/write", {
       method: "POST",
@@ -23,7 +21,7 @@ const Write = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        data,
+        new_data,
       }),
     });
 
@@ -35,9 +33,18 @@ const Write = () => {
     }
   };
 
+
   return (
     <>
-      <Editor name="description" onChange = {(journal_data) => setData(journal_data)} editorLoaded = {editorLoaded}/>
+      <textarea
+          className = {styles.editor}
+          onChange={(e) => {
+            setData({...data, value: e.target.value})
+          }}
+          contentEditable = {true}
+          value = {data.value}
+        ></textarea>
+
       <button onClick={pushEntry}>Push Entry</button>
     </>
   );
