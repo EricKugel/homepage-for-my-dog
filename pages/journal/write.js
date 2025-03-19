@@ -21,7 +21,7 @@ const Write = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        new_data,
+        data: new_data,
       }),
     });
 
