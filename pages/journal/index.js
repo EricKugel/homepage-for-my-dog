@@ -5,6 +5,30 @@ import { connectDB } from "../../helpers/mongohelper";
 
 import styles from "./JournalPage.module.css";
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  var output = months[date.getMonth()] + " ";
+  output += date.getDate() + ", ";
+  output += date.getFullYear() + ", ";
+  output += date.getHours() + ":" + date.getMinutes();
+  return output;
+};
+
 const JournalPage = ({ journals }) => {
   return (
     <>
@@ -13,7 +37,7 @@ const JournalPage = ({ journals }) => {
       {journals &&
         journals.map((journal) => (
           <div key={journal._id} className={styles.journal}>
-            <div className={styles.date}>{journal.date}</div>
+            <div className={styles.date}>{formatDate(journal.date)}</div>
             <div
               className={styles.journalContent}
               dangerouslySetInnerHTML={{ __html: journal.journal }}
