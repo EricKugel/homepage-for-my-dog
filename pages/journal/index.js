@@ -25,7 +25,7 @@ const formatDate = (dateString) => {
   var output = months[date.getMonth()] + " ";
   output += date.getDate() + ", ";
   output += date.getFullYear() + ", ";
-  output += date.getHours() + ":" + date.getMinutes();
+  output += date.getHours().padStart(2, "0") + ":" + date.getMinutes().padStart(2, "0");
   return output;
 };
 
