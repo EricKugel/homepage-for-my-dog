@@ -20,12 +20,20 @@ const months = [
   "December",
 ];
 
+const pad = (how_many, s, str) => {
+  stringg = "" + str;
+  while (stringg.length() < how_many) {
+    stringg = s + stringg;
+  }
+  return stringg;
+}
+
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   var output = months[date.getMonth()] + " ";
   output += date.getDate() + ", ";
   output += date.getFullYear() + ", ";
-  output += date.getHours().padStart(2, "0") + ":" + date.getMinutes().padStart(2, "0");
+  output += pad(2, "0", date.getHours()) + ":" + pad(2, "0", date.getMinutes());
   return output;
 };
 
