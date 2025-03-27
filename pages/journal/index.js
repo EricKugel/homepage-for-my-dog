@@ -21,7 +21,7 @@ const months = [
 ];
 
 const pad = (how_many, s, str) => {
-  stringg = "" + str;
+  var stringg = "" + str;
   while (stringg.length() < how_many) {
     stringg = s + stringg;
   }
