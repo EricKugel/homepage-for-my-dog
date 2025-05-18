@@ -13,7 +13,7 @@ const AboutMe = () => {
             </div>
 
             <div className = {styles.imagePanel}>
-                <img className = {styles.image} src = "/me.jpg"/>
+                <img className = {styles.image} src = "/image.png"/>
             </div>
 
             <div className = {styles.textPanel}>
