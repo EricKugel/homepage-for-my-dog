@@ -19,7 +19,7 @@ const AboutMe = () => {
             <div className = {styles.textPanel}>
                 I'm Eric! I'm a student at the University of Minnesota-Twin Cities majoring in Mathematics and Computer Science.
                 <br/><br/>
-                I also enjoy violin, piano, and unicycling. I'm a member of the University Philharmonic Orchestra and the Competitive Programming Club.
+                I also enjoy violin, piano, and unicycling. I'm a member of the University Philharmonic Orchestra and secretary of the Competitive Programming Club.
             </div>
         </div>
     </div>
