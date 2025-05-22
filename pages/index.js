@@ -97,6 +97,13 @@ const App = () => {
       <div className = {styles.panelGroup}>
         <Panel
           image = "/panel/unicycle.png"
+          avatar = "/unicycle-simulator-1/lib/images/logo.png"
+          title = "DEMO: Unicycle Simulator 2"
+          subtitle = "Get a sneak peek of Unicycle Simulator 2!"
+          link = "https://erickugel.com/unicycle-simulator-2/unicycle%20simulator%202.html"
+        ></Panel>
+        <Panel
+          image = "/panel/unicycle.png"
           avatar = "/panel/unicycle-1-avatar.png"
           title = "Unicycle Simulator 1"
           subtitle = "Original Unicycle Simulator, recreated in Godot. Mobile and controller friendly."
@@ -110,6 +117,20 @@ const App = () => {
           link = "https://erickugel.github.io/Unicycle-Simulator"
         ></Panel>
       </div>
+
+      <div className = {styles.header + " " + roboto.className}>
+        Jake Johnson For Congress
+      </div>
+      <div className = {styles.panelGroup}>
+        <Panel
+          image = "/panel/jake.png"
+          avatar = "/panel/jake-avatar.png"
+          title = "Vote Jake Johnson for Congress"
+          subtitle = "#jakejohnsonforcongress"
+          link = "https://www.jakejohnsonforcongress.com/"
+        ></Panel>
+      </div>
+
     </>
   );
 };
