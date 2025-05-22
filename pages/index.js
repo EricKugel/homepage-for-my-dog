@@ -100,7 +100,7 @@ const App = () => {
           avatar = "/unicycle-simulator-1/lib/images/logo.png"
           title = "DEMO: Unicycle Simulator 2"
           subtitle = "Get a sneak peek of Unicycle Simulator 2!"
-          link = "https://erickugel.com/unicycle-simulator-2/unicycle%20simulator%202.html"
+          link = "https://erickugel.com/unicycle-simulator-2/unicycle-simulator-2.html"
         ></Panel>
         <Panel
           image = "/panel/unicycle.png"
