@@ -22,7 +22,7 @@ const App = () => {
           image = "/panel/linkedin.png"
           avatar = "/panel/linkedin-avatar.png"
           title = "Eric Kugel"
-          subtitle = "CS and Math at UMN, supervisor at Burlington."
+          subtitle = "Computer Science & Math Honors Student @ UMN."
           link = "https://www.linkedin.com/in/erickugel/"
         ></Panel>
         <Panel
