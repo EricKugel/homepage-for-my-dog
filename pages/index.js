@@ -20,7 +20,7 @@ const App = () => {
       <div className = {styles.panelGroup}>
         <Panel 
           image = "/panel/linkedin.png"
-          avatar = "/panel/linkedin-avatar.png"
+          avatar = "/panel/linkedin-avatar.jpeg"
           title = "Eric Kugel"
           subtitle = "Computer Science & Math Honors Student @ UMN."
           link = "https://www.linkedin.com/in/erickugel/"
