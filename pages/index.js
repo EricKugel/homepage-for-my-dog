@@ -41,6 +41,13 @@ const App = () => {
       <div className = {styles.panelGroup}>
         <Panel
           image = "/panel/github.png"
+          avatar = "/panel/ericsql-avatar.png"
+          title = "EricSQL"
+          subtitle = {<span>A powerful SQL parser and server, supporting core statements, expressions, and functions. I'm runnning a demo at <SubtitleLink href = "https://ericsql.erickugel.com" children = "ericsql.erickugel.com"></SubtitleLink></span>}
+          link = "https://github.com/EricKugel/EricSQL"
+        ></Panel>
+        <Panel
+          image = "/panel/github.png"
           avatar = "/panel/esarcplang-avatar.png"
           title = "Esarcplang"
           subtitle = "An interpreted programming language built from scratch in python. Like a combination of lisp and assembly."
