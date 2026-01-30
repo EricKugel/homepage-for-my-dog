@@ -19,6 +19,7 @@ const Banner = () => {
 
   return (
     <>
+      
       <div id="banner">
         
         <img onClick = {goHome} id = "logo" src = "/banner-logo.png"/>
