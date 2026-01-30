@@ -33,8 +33,8 @@ const CsciWelcome = () => {
                 the Minneapolis bike trails are, and because of that I'm starting to
                 really enjoy biking. I don't think there's a better way to get to know
                 Minneapolis. I'm part of the University Philharmonic Orchestra and 
-                competitive programming club too. I also like playing violin and unicycling! If you like, this is video proof of
-                me peaking in high school: 
+                competitive programming club too. I also like playing violin and unicycling! If you'd like, this is video proof that I
+                peaked in high school: 
             </div>
     
             <div>
