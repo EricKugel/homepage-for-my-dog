@@ -1,0 +1,46 @@
+.wrapper {
+    /* border: 1px solid darkslategrey; */
+    border-radius: 10px;
+    width: 270px;
+    background-color: white;
+
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif;
+}
+
+.wrapper:hover {
+    cursor: pointer;
+    border: 1px solid rgb(159, 159, 159);
+}
+
+.banner {
+    height: 68px;
+    background-size: contain;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 16px;
+}
+
+.image {
+    max-height: 85px;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: relative;
+    top: -43px;
+    left: 20px;
+}
+
+.bottom {
+    position: relative;
+    top: -48px;
+    left: 12px;
+    width: 250px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.subtitle {
+    font-size: 13px;
+}

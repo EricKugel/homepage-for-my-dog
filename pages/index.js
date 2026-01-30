@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { Roboto } from "next/font/google";
 
 import Panel from "../components/Panel";
+import LinkedinPanel from "../components/LinkedinPanel";
 import SubtitleLink from "../components/SubtitleLink";
 import styles from "./index.module.css";
 
@@ -18,18 +19,18 @@ const App = () => {
       </div>
 
       <div className = {styles.panelGroup}>
-        <Panel 
-          image = "/panel/linkedin.png"
+        <LinkedinPanel 
+          image = "/panel/linkedin-banner.jpeg"
           avatar = "/panel/linkedin-avatar.jpeg"
           title = "Eric Kugel"
-          subtitle = "Computer Science & Math Honors Student @ UMN."
+          subtitle = "Computer Science & Math Honors Student @ UMN"
           link = "https://www.linkedin.com/in/erickugel/"
-        ></Panel>
+        ></LinkedinPanel>
         <Panel
           image = "/panel/github.png"
           avatar = "/panel/github-avatar.png"
           title = "Eric Kugel"
-          subtitle = "Programmer in Java, Python, HTML/JS/CSS, Next.js, and C."
+          subtitle = "Programmer in Java, Python, HTML/JS/CSS, Next.js, C/C++"
           link = "https://github.com/EricKugel"
         ></Panel>
       </div>
